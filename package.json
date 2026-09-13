@@ -1,0 +1,36 @@
+{
+  "name": "simulador-inversions",
+  "version": "1.0.0",
+  "description": "Simulador interactiu de rendiments reals d'inversió (S&P 500, IBEX 35, Euro Stoxx 50, Immobiliari Barcelona) ajustat per inflació històrica i salaris reals.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "investment",
+    "simulator",
+    "sp500",
+    "ibex35",
+    "real-estate",
+    "inflation",
+    "monte-carlo",
+    "backtesting",
+    "finance",
+    "chartjs"
+  ],
+  "author": "Jordi Marias",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JordiMarias/simulador-inversions.git"
+  },
+  "devDependencies": {
+    "vite": "^5.4.21"
+  },
+  "dependencies": {
+    "chart.js": "^4.5.1",
+    "lucide": "^1.45.0"
+  }
+}
