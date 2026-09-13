@@ -43,15 +43,15 @@ export function renderHistoricalChart(canvasEl, simResult, isRealMode = true, en
   const symbol = simResult.currencySymbol;
   const labels = simResult.annualBreakdown.map(row => row.year);
 
-  // Asset color schemes
+  // Asset color schemes - Corporate Digital Banking
   const colors = {
-    sp500: { border: '#06B6D4', bg: 'rgba(6, 182, 212, 0.12)' },      // Cyan
-    ibex35: { border: '#EC4899', bg: 'rgba(236, 72, 153, 0.10)' },     // Pink
-    eurostoxx: { border: '#3B82F6', bg: 'rgba(59, 130, 246, 0.10)' },  // Blue
-    barcelonaRE: { border: '#8B5CF6', bg: 'rgba(139, 92, 246, 0.15)' },// Purple
-    bankDeposit: { border: '#F59E0B', bg: 'rgba(245, 158, 11, 0.10)' },// Amber
-    cash: { border: '#94A3B8', bg: 'rgba(148, 163, 184, 0.08)' },       // Slate
-    invested: { border: '#10B981', bg: 'rgba(16, 185, 129, 0.05)' }    // Emerald dashed
+    sp500: { border: '#007ea8', bg: 'rgba(0, 126, 168, 0.12)' },       // Digital Banking Blue
+    ibex35: { border: '#db2777', bg: 'rgba(219, 39, 119, 0.10)' },     // Magenta
+    eurostoxx: { border: '#2563eb', bg: 'rgba(37, 99, 235, 0.10)' },   // Royal Blue
+    barcelonaRE: { border: '#7c3aed', bg: 'rgba(124, 58, 237, 0.12)' },// Purple
+    bankDeposit: { border: '#d97706', bg: 'rgba(217, 119, 6, 0.10)' }, // Amber
+    cash: { border: '#64748b', bg: 'rgba(100, 116, 139, 0.08)' },       // Slate
+    invested: { border: '#059669', bg: 'rgba(5, 150, 105, 0.05)' }     // Emerald dashed
   };
 
   const datasets = [];
@@ -59,7 +59,7 @@ export function renderHistoricalChart(canvasEl, simResult, isRealMode = true, en
   // Invested baseline (Dashed line)
   if (enabledAssets.invested !== false) {
     datasets.push({
-      label: isRealMode ? 'Real Invested Capital (2026)' : 'Nominal Invested Capital',
+      label: isRealMode ? 'Capital Aportat Real (2026)' : 'Capital Aportat Nominal',
       data: simResult.annualBreakdown.map(r => isRealMode ? r.totalInvestedReal2026 : r.totalInvestedNominal),
       borderColor: colors.invested.border,
       backgroundColor: 'transparent',
@@ -91,7 +91,7 @@ export function renderHistoricalChart(canvasEl, simResult, isRealMode = true, en
   // Barcelona Real Estate (if Spain)
   if (simResult.country === 'ES' && enabledAssets.barcelonaRE !== false) {
     datasets.push({
-      label: `Barcelona Real Estate (${isRealMode ? 'Real 2026' : 'Nominal'})`,
+      label: `Immobiliari Barcelona (${isRealMode ? 'Real 2026' : 'Nominal'})`,
       data: simResult.annualBreakdown.map(r => isRealMode ? r.barcelonaREReal2026 : r.barcelonaRENominal),
       borderColor: colors.barcelonaRE.border,
       backgroundColor: colors.barcelonaRE.bg,
@@ -136,7 +136,7 @@ export function renderHistoricalChart(canvasEl, simResult, isRealMode = true, en
   // Bank Deposits
   if (enabledAssets.bankDeposit !== false) {
     datasets.push({
-      label: `Bank Deposits (${isRealMode ? 'Real 2026' : 'Nominal'})`,
+      label: `Dipòsits Bancaris (${isRealMode ? 'Real 2026' : 'Nominal'})`,
       data: simResult.annualBreakdown.map(r => isRealMode ? r.bankDepositReal2026 : r.bankDepositNominal),
       borderColor: colors.bankDeposit.border,
       backgroundColor: 'transparent',
@@ -151,7 +151,7 @@ export function renderHistoricalChart(canvasEl, simResult, isRealMode = true, en
   // Cash / Mattress
   if (enabledAssets.cash !== false) {
     datasets.push({
-      label: `Cash Mattress (${isRealMode ? 'Real 2026' : 'Nominal'})`,
+      label: `Diners en Efectiu (${isRealMode ? 'Real 2026' : 'Nominal'})`,
       data: simResult.annualBreakdown.map(r => isRealMode ? r.cashReal2026 : r.cashNominal),
       borderColor: colors.cash.border,
       backgroundColor: colors.cash.bg,
@@ -181,8 +181,8 @@ export function renderHistoricalChart(canvasEl, simResult, isRealMode = true, en
         legend: {
           position: 'top',
           labels: {
-            color: '#94A3B8',
-            font: { family: "'Inter', sans-serif", size: 12 },
+            color: '#334155',
+            font: { family: "'Plus Jakarta Sans', sans-serif", size: 12, weight: '600' },
             usePointStyle: true,
             boxWidth: 8,
             boxHeight: 8,
@@ -190,15 +190,15 @@ export function renderHistoricalChart(canvasEl, simResult, isRealMode = true, en
           }
         },
         tooltip: {
-          backgroundColor: 'rgba(15, 23, 42, 0.95)',
-          titleColor: '#F8FAFC',
+          backgroundColor: 'rgba(0, 30, 51, 0.95)',
+          titleColor: '#FFFFFF',
           bodyColor: '#CBD5E1',
-          borderColor: 'rgba(255, 255, 255, 0.15)',
+          borderColor: 'rgba(0, 126, 168, 0.4)',
           borderWidth: 1,
           padding: 12,
           boxPadding: 6,
-          titleFont: { family: "'Outfit', sans-serif", size: 14, weight: 'bold' },
-          bodyFont: { family: "'Inter', sans-serif", size: 12 },
+          titleFont: { family: "'Plus Jakarta Sans', sans-serif", size: 14, weight: '700' },
+          bodyFont: { family: "'Plus Jakarta Sans', sans-serif", size: 12 },
           callbacks: {
             label: function (context) {
               const label = context.dataset.label || '';
@@ -210,20 +210,20 @@ export function renderHistoricalChart(canvasEl, simResult, isRealMode = true, en
       },
       scales: {
         x: {
-          grid: { color: 'rgba(255, 255, 255, 0.05)' },
+          grid: { color: 'rgba(226, 232, 240, 0.8)' },
           ticks: {
             color: '#64748B',
-            font: { family: "'Inter', sans-serif", size: 11 },
+            font: { family: "'Plus Jakarta Sans', sans-serif", size: 11, weight: '500' },
             maxRotation: 0,
             autoSkip: true,
             maxTicksLimit: 12
           }
         },
         y: {
-          grid: { color: 'rgba(255, 255, 255, 0.05)' },
+          grid: { color: 'rgba(226, 232, 240, 0.8)' },
           ticks: {
             color: '#64748B',
-            font: { family: "'Inter', sans-serif", size: 11 },
+            font: { family: "'Plus Jakarta Sans', sans-serif", size: 11, weight: '500' },
             callback: (val) => formatCurrency(val, symbol)
           }
         }
@@ -256,9 +256,9 @@ export function renderMonteCarloChart(canvasEl, mcResult, isRealMode = true) {
   const datasets = [
     // Invested capital (dashed emerald)
     {
-      label: isRealMode ? 'Real Capital Contributed' : 'Nominal Capital Contributed',
+      label: isRealMode ? 'Capital Aportat Real' : 'Capital Aportat Nominal',
       data: invested,
-      borderColor: '#10B981',
+      borderColor: '#059669',
       backgroundColor: 'transparent',
       borderDash: [6, 4],
       borderWidth: 2,
@@ -267,9 +267,9 @@ export function renderMonteCarloChart(canvasEl, mcResult, isRealMode = true) {
     },
     // Cash at 0%
     {
-      label: 'Cash (0% interest, real value)',
+      label: 'Efectiu al 0% (Poder Real)',
       data: cash,
-      borderColor: '#94A3B8',
+      borderColor: '#64748B',
       backgroundColor: 'transparent',
       borderWidth: 1.5,
       pointRadius: 0,
@@ -277,10 +277,10 @@ export function renderMonteCarloChart(canvasEl, mcResult, isRealMode = true) {
     },
     // 90th percentile (Bull)
     {
-      label: '90th Percentile (Bull Market)',
+      label: 'Percentil 90 (Mercat Alcista / Bull)',
       data: p90,
-      borderColor: 'rgba(6, 182, 212, 0.4)',
-      backgroundColor: 'rgba(6, 182, 212, 0.08)',
+      borderColor: 'rgba(0, 126, 168, 0.4)',
+      backgroundColor: 'rgba(0, 126, 168, 0.08)',
       fill: '+1', // Fill down to p75
       borderWidth: 1.5,
       pointRadius: 0,
@@ -289,10 +289,10 @@ export function renderMonteCarloChart(canvasEl, mcResult, isRealMode = true) {
     },
     // 75th percentile
     {
-      label: '75th Percentile (Optimistic)',
+      label: 'Percentil 75 (Optimista)',
       data: p75,
-      borderColor: 'rgba(6, 182, 212, 0.6)',
-      backgroundColor: 'rgba(6, 182, 212, 0.15)',
+      borderColor: 'rgba(0, 126, 168, 0.6)',
+      backgroundColor: 'rgba(0, 126, 168, 0.15)',
       fill: '+1', // Fill down to p50
       borderWidth: 1.5,
       pointRadius: 0,
@@ -301,10 +301,10 @@ export function renderMonteCarloChart(canvasEl, mcResult, isRealMode = true) {
     },
     // 50th percentile (Median Expected)
     {
-      label: '50th Percentile (Expected Median)',
+      label: 'Percentil 50 (Mediana Esperada)',
       data: p50,
-      borderColor: '#06B6D4',
-      backgroundColor: 'rgba(6, 182, 212, 0.15)',
+      borderColor: '#007ea8',
+      backgroundColor: 'rgba(0, 126, 168, 0.18)',
       fill: '+1', // Fill down to p25
       borderWidth: 3.5,
       pointRadius: 0,
@@ -314,10 +314,10 @@ export function renderMonteCarloChart(canvasEl, mcResult, isRealMode = true) {
     },
     // 25th percentile
     {
-      label: '25th Percentile (Conservative)',
+      label: 'Percentil 25 (Conservador)',
       data: p25,
-      borderColor: 'rgba(6, 182, 212, 0.6)',
-      backgroundColor: 'rgba(6, 182, 212, 0.08)',
+      borderColor: 'rgba(0, 126, 168, 0.6)',
+      backgroundColor: 'rgba(0, 126, 168, 0.08)',
       fill: '+1', // Fill down to p10
       borderWidth: 1.5,
       pointRadius: 0,
@@ -326,9 +326,9 @@ export function renderMonteCarloChart(canvasEl, mcResult, isRealMode = true) {
     },
     // 10th percentile (Bear)
     {
-      label: '10th Percentile (Bear Market)',
+      label: 'Percentil 10 (Mercat Baixista / Bear)',
       data: p10,
-      borderColor: 'rgba(239, 68, 68, 0.6)',
+      borderColor: 'rgba(220, 38, 38, 0.7)',
       backgroundColor: 'transparent',
       borderWidth: 1.5,
       pointRadius: 0,
@@ -355,25 +355,25 @@ export function renderMonteCarloChart(canvasEl, mcResult, isRealMode = true) {
         legend: {
           position: 'top',
           labels: {
-            color: '#94A3B8',
-            font: { family: "'Inter', sans-serif", size: 12 },
+            color: '#334155',
+            font: { family: "'Plus Jakarta Sans', sans-serif", size: 12, weight: '600' },
             usePointStyle: true,
             boxWidth: 8,
             boxHeight: 8,
             padding: 14,
-            filter: (legendItem) => !legendItem.text.includes('Percentile') || legendItem.text.includes('50th') || legendItem.text.includes('10th') || legendItem.text.includes('90th')
+            filter: (legendItem) => !legendItem.text.includes('Percentil') || legendItem.text.includes('50') || legendItem.text.includes('10') || legendItem.text.includes('90')
           }
         },
         tooltip: {
-          backgroundColor: 'rgba(15, 23, 42, 0.95)',
-          titleColor: '#F8FAFC',
+          backgroundColor: 'rgba(0, 30, 51, 0.95)',
+          titleColor: '#FFFFFF',
           bodyColor: '#CBD5E1',
-          borderColor: 'rgba(255, 255, 255, 0.15)',
+          borderColor: 'rgba(0, 126, 168, 0.4)',
           borderWidth: 1,
           padding: 12,
           boxPadding: 6,
-          titleFont: { family: "'Outfit', sans-serif", size: 14, weight: 'bold' },
-          bodyFont: { family: "'Inter', sans-serif", size: 12 },
+          titleFont: { family: "'Plus Jakarta Sans', sans-serif", size: 14, weight: '700' },
+          bodyFont: { family: "'Plus Jakarta Sans', sans-serif", size: 12 },
           callbacks: {
             label: function (context) {
               const label = context.dataset.label || '';
@@ -385,18 +385,18 @@ export function renderMonteCarloChart(canvasEl, mcResult, isRealMode = true) {
       },
       scales: {
         x: {
-          grid: { color: 'rgba(255, 255, 255, 0.05)' },
+          grid: { color: 'rgba(226, 232, 240, 0.8)' },
           ticks: {
             color: '#64748B',
-            font: { family: "'Inter', sans-serif", size: 11 },
+            font: { family: "'Plus Jakarta Sans', sans-serif", size: 11, weight: '500' },
             maxTicksLimit: 10
           }
         },
         y: {
-          grid: { color: 'rgba(255, 255, 255, 0.05)' },
+          grid: { color: 'rgba(226, 232, 240, 0.8)' },
           ticks: {
             color: '#64748B',
-            font: { family: "'Inter', sans-serif", size: 11 },
+            font: { family: "'Plus Jakarta Sans', sans-serif", size: 11, weight: '500' },
             callback: (val) => formatCurrency(val, symbol)
           }
         }

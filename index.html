@@ -5,38 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulador de Rendiments Reals d'Inversió | S&P 500, Inflació i Salaris</title>
   <meta name="description" content="Simula de manera realista els rendiments reals d'invertir el 10% del teu sou mensual en el S&P 500, Ibex 35 o immobiliari durant 30 anys ajustat per la inflació.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>">
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="./src/style.css">
 </head>
 <body>
-  <!-- Ambient background glow elements -->
-  <div class="bg-glow-1"></div>
-  <div class="bg-glow-2"></div>
 
-  <div class="app-container">
-    <!-- Header -->
-    <header class="app-header">
-      <div class="header-brand">
-        <div class="brand-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-            <polyline points="17 6 23 6 23 12"></polyline>
-          </svg>
-        </div>
-        <div>
-          <h1 class="brand-title" id="txt-appTitle">Simulador de Rendiments Reals d'Inversió</h1>
-          <p class="brand-subtitle" id="txt-appSubtitle">Backtesting realista i projeccions futures ajustades per inflació real i salaris històrics</p>
+  <!-- Capçalera Corporativa Digital Banking -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-icon">📈</div>
+        <div class="brand-text">
+          <h1 id="txt-appTitle">Simulador de Rendiments Reals d'Inversió</h1>
+          <p class="subtitle" id="txt-appSubtitle">Backtesting realista i projeccions futures ajustades per inflació real i salaris històrics</p>
         </div>
       </div>
 
-      <div class="header-controls">
+      <div class="header-actions">
         <!-- Mode Switch: Historical vs Future -->
         <div class="segmented-control">
           <button id="btn-mode-historical" class="segmented-btn active">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             <span id="txt-modeHistorical">Backtesting Històric</span>
           </button>
           <button id="btn-mode-future" class="segmented-btn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
             <span id="txt-modeFuture">Projecció de Futur (2026+)</span>
           </button>
         </div>
@@ -47,165 +46,243 @@
           <button class="toggle-pill" id="btn-lang-en">English</button>
         </div>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <!-- Controls Panel (Historical Mode) -->
-    <div id="historical-controls" class="control-panel">
-      <!-- Country selection -->
-      <div class="control-section">
-        <label class="control-label" for="select-country">
-          <span id="txt-countrySelector">País / Context Econòmic</span>
-        </label>
-        <select id="select-country">
-          <option value="ES" selected>🇪🇸 Espanya / Catalunya (EUR / Salaris INE / IPC)</option>
-          <option value="US">🇺🇸 Estats Units (USD / Salaris SSA / CPI)</option>
-        </select>
+  <div class="app-container">
+    <!-- Controls Card (Historical Mode) -->
+    <section id="historical-controls" class="card control-card">
+      <div class="card-header">
+        <h2 class="card-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20v-6M6 20V10M18 20V4"/>
+          </svg>
+          <span id="txt-configHeader">Paràmetres de la Simulació Històrica</span>
+        </h2>
+        <span class="badge badge-info" id="txt-badgeHistorical">Sèries Oficials (1928–2026)</span>
       </div>
 
-      <!-- Start Year & Duration -->
-      <div class="control-section">
-        <label class="control-label">
-          <span id="txt-startYear">Any d'Inici</span>
-          <span class="control-val-badge" id="badge-startYear">1995</span>
-        </label>
-        <div class="slider-container">
-          <input type="range" id="slider-startYear" min="1980" max="2020" value="1995" step="1">
+      <div class="control-grid">
+        <!-- Country selection -->
+        <div class="form-group">
+          <div class="form-label-row">
+            <label class="form-label" for="select-country" id="txt-countrySelector">País / Context Econòmic</label>
+            <span class="form-label-hint">Salaris & IPC</span>
+          </div>
+          <select id="select-country" class="form-control">
+            <option value="ES" selected>🇪🇸 Espanya / Catalunya (EUR / Salaris INE / IPC)</option>
+            <option value="US">🇺🇸 Estats Units (USD / Salaris SSA / CPI)</option>
+          </select>
         </div>
-      </div>
 
-      <div class="control-section">
-        <label class="control-label">
-          <span id="txt-duration">Durada</span>
-          <span class="control-val-badge" id="badge-duration">30 anys</span>
-        </label>
-        <div class="slider-container">
-          <input type="range" id="slider-duration" min="5" max="40" value="30" step="1">
+        <!-- Start Year -->
+        <div class="form-group">
+          <div class="form-label-row">
+            <label class="form-label">
+              <span id="txt-startYear">Any d'Inici</span>
+            </label>
+            <span class="control-val-badge" id="badge-startYear">1995</span>
+          </div>
+          <div class="range-slider-container">
+            <input type="range" id="slider-startYear" class="range-slider" min="1980" max="2020" value="1995" step="1">
+          </div>
+          <div class="slider-ticks">
+            <span id="tick-min-year">1980</span>
+            <span>2000</span>
+            <span>2020</span>
+          </div>
         </div>
-      </div>
 
-      <!-- Monthly Savings Rate -->
-      <div class="control-section">
-        <label class="control-label">
-          <span id="txt-savingsRate">Taxa d'Estalvi Mensual (% del Sou)</span>
-          <span class="control-val-badge" id="badge-savingsRate">10%</span>
-        </label>
-        <div class="slider-container">
-          <input type="range" id="slider-savingsRate" min="1" max="40" value="10" step="1">
+        <!-- Duration -->
+        <div class="form-group">
+          <div class="form-label-row">
+            <label class="form-label">
+              <span id="txt-duration">Durada de la Carrera</span>
+            </label>
+            <span class="control-val-badge" id="badge-duration">30 anys</span>
+          </div>
+          <div class="range-slider-container">
+            <input type="range" id="slider-duration" class="range-slider" min="5" max="40" value="30" step="1">
+          </div>
+          <div class="slider-ticks">
+            <span>5 anys</span>
+            <span>20 anys</span>
+            <span>40 anys</span>
+          </div>
         </div>
-      </div>
 
-      <!-- Valuation Mode Switch (Real vs Nominal) -->
-      <div class="control-section">
-        <label class="control-label" id="txt-valueMode">Mode de Valoració</label>
-        <div class="toggle-group" style="width: 100%;">
-          <button class="toggle-pill active" id="btn-val-real" style="flex: 1;">
-            <span id="txt-realMode">Real (Constant 2026)</span>
-          </button>
-          <button class="toggle-pill" id="btn-val-nominal" style="flex: 1;">
-            <span id="txt-nominalMode">Nominal</span>
-          </button>
+        <!-- Monthly Savings Rate -->
+        <div class="form-group">
+          <div class="form-label-row">
+            <label class="form-label">
+              <span id="txt-savingsRate">Taxa d'Estalvi Mensual (% del Sou)</span>
+            </label>
+            <span class="control-val-badge" id="badge-savingsRate">10%</span>
+          </div>
+          <div class="range-slider-container">
+            <input type="range" id="slider-savingsRate" class="range-slider" min="1" max="40" value="10" step="1">
+          </div>
+          <div class="slider-ticks">
+            <span>1%</span>
+            <span>10%</span>
+            <span>40%</span>
+          </div>
+        </div>
+
+        <!-- Valuation Mode Switch (Real vs Nominal) -->
+        <div class="form-group">
+          <div class="form-label-row">
+            <label class="form-label" id="txt-valueMode">Mode de Valoració</label>
+            <span class="form-label-hint">Poder de compra</span>
+          </div>
+          <div class="valuation-toggle-group">
+            <button class="toggle-pill active" id="btn-val-real">
+              <span id="txt-realMode">Real (Constant 2026)</span>
+            </button>
+            <button class="toggle-pill" id="btn-val-nominal">
+              <span id="txt-nominalMode">Nominal</span>
+            </button>
+          </div>
         </div>
       </div>
 
       <!-- Historical Era Presets Bar -->
-      <div class="presets-bar">
-        <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;" id="txt-presetLabel">Èpoques:</span>
-        <div id="presets-container" style="display: flex; flex-wrap: wrap; gap: 8px;"></div>
+      <div class="presets-section">
+        <span class="presets-label" id="txt-presetLabel">Èpoques Clau:</span>
+        <div id="presets-container" class="presets-container"></div>
       </div>
 
       <!-- Asset Filters -->
-      <div class="asset-checkboxes">
-        <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;" id="txt-assetsToCompare">Actius:</span>
-        <label class="asset-check-label">
-          <input type="checkbox" id="chk-sp500" checked>
-          <span class="asset-dot" style="background: #06B6D4;"></span>
-          <span id="txt-assetSp500">S&P 500 (Rendiment Total)</span>
-        </label>
-        <label class="asset-check-label" id="chk-label-re">
-          <input type="checkbox" id="chk-barcelonaRE" checked>
-          <span class="asset-dot" style="background: #8B5CF6;"></span>
-          <span id="txt-assetBarcelonaRE">Immobiliari Barcelona (Pis + Hipoteca)</span>
-        </label>
-        <label class="asset-check-label" id="chk-label-eurostoxx">
-          <input type="checkbox" id="chk-eurostoxx" checked>
-          <span class="asset-dot" style="background: #3B82F6;"></span>
-          <span id="txt-assetEurostoxx">Euro Stoxx 50</span>
-        </label>
-        <label class="asset-check-label" id="chk-label-ibex">
-          <input type="checkbox" id="chk-ibex35" checked>
-          <span class="asset-dot" style="background: #EC4899;"></span>
-          <span id="txt-assetIbex35">IBEX 35</span>
-        </label>
-        <label class="asset-check-label">
-          <input type="checkbox" id="chk-bankDeposit" checked>
-          <span class="asset-dot" style="background: #F59E0B;"></span>
-          <span id="txt-assetBankDeposit">Dipòsits Bancaris</span>
-        </label>
-        <label class="asset-check-label">
-          <input type="checkbox" id="chk-cash" checked>
-          <span class="asset-dot" style="background: #94A3B8;"></span>
-          <span id="txt-assetCash">Diners sota el matalàs (0%)</span>
-        </label>
-      </div>
-    </div>
-
-    <!-- Controls Panel (Future Mode) -->
-    <div id="future-controls" class="control-panel" style="display: none;">
-      <div class="control-section">
-        <label class="control-label" for="input-futureSalary">
-          <span id="txt-futureStartSalary">Salari Inicial 2026</span>
-        </label>
-        <input type="number" id="input-futureSalary" value="30500" step="500">
-      </div>
-
-      <div class="control-section">
-        <label class="control-label">
-          <span id="txt-futureSavingsRate">Estalvi Mensual</span>
-          <span class="control-val-badge" id="badge-futureSavingsRate">10%</span>
-        </label>
-        <div class="slider-container">
-          <input type="range" id="slider-futureSavingsRate" min="1" max="40" value="10" step="1">
+      <div class="asset-filters-section">
+        <span class="asset-filters-label" id="txt-assetsToCompare">Actius a Comparar:</span>
+        <div class="asset-checkboxes">
+          <label class="asset-check-label">
+            <input type="checkbox" id="chk-sp500" checked>
+            <span class="asset-dot" style="background: #007ea8;"></span>
+            <span id="txt-assetSp500">S&P 500 (Rendiment Total)</span>
+          </label>
+          <label class="asset-check-label" id="chk-label-re">
+            <input type="checkbox" id="chk-barcelonaRE" checked>
+            <span class="asset-dot" style="background: #7c3aed;"></span>
+            <span id="txt-assetBarcelonaRE">Immobiliari Barcelona (Pis + Hipoteca)</span>
+          </label>
+          <label class="asset-check-label" id="chk-label-eurostoxx">
+            <input type="checkbox" id="chk-eurostoxx" checked>
+            <span class="asset-dot" style="background: #2563eb;"></span>
+            <span id="txt-assetEurostoxx">Euro Stoxx 50</span>
+          </label>
+          <label class="asset-check-label" id="chk-label-ibex">
+            <input type="checkbox" id="chk-ibex35" checked>
+            <span class="asset-dot" style="background: #db2777;"></span>
+            <span id="txt-assetIbex35">IBEX 35</span>
+          </label>
+          <label class="asset-check-label">
+            <input type="checkbox" id="chk-bankDeposit" checked>
+            <span class="asset-dot" style="background: #d97706;"></span>
+            <span id="txt-assetBankDeposit">Dipòsits Bancaris</span>
+          </label>
+          <label class="asset-check-label">
+            <input type="checkbox" id="chk-cash" checked>
+            <span class="asset-dot" style="background: #64748b;"></span>
+            <span id="txt-assetCash">Diners sota el matalàs (0%)</span>
+          </label>
         </div>
       </div>
+    </section>
 
-      <div class="control-section">
-        <label class="control-label">
-          <span id="txt-futureDuration">Horitzó d'Inversió</span>
-          <span class="control-val-badge" id="badge-futureDuration">30 anys</span>
-        </label>
-        <div class="slider-container">
-          <input type="range" id="slider-futureDuration" min="5" max="40" value="30" step="1">
+    <!-- Controls Card (Future Mode) -->
+    <section id="future-controls" class="card control-card" style="display: none;">
+      <div class="card-header">
+        <h2 class="card-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+            <polyline points="16 7 22 7 22 13"/>
+          </svg>
+          <span id="txt-futureConfigHeader">Paràmetres de la Projecció Monte Carlo</span>
+        </h2>
+        <span class="badge badge-success">Model Estocàstic (1.000 Iteracions)</span>
+      </div>
+
+      <div class="control-grid">
+        <div class="form-group">
+          <div class="form-label-row">
+            <label class="form-label" for="input-futureSalary" id="txt-futureStartSalary">Salari Inicial 2026</label>
+            <span class="form-label-hint">Anual brut</span>
+          </div>
+          <div class="input-with-adornment">
+            <input type="number" id="input-futureSalary" class="form-control has-right-adornment" value="30500" step="500">
+            <span class="input-adornment-right">€</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label class="form-label" id="txt-futureSavingsRate">Estalvi Mensual</label>
+            <span class="control-val-badge" id="badge-futureSavingsRate">10%</span>
+          </div>
+          <div class="range-slider-container">
+            <input type="range" id="slider-futureSavingsRate" class="range-slider" min="1" max="40" value="10" step="1">
+          </div>
+          <div class="slider-ticks">
+            <span>1%</span>
+            <span>10%</span>
+            <span>40%</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label class="form-label" id="txt-futureDuration">Horitzó d'Inversió</label>
+            <span class="control-val-badge" id="badge-futureDuration">30 anys</span>
+          </div>
+          <div class="range-slider-container">
+            <input type="range" id="slider-futureDuration" class="range-slider" min="5" max="40" value="30" step="1">
+          </div>
+          <div class="slider-ticks">
+            <span>5 anys</span>
+            <span>20 anys</span>
+            <span>40 anys</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label class="form-label" for="input-futureInflation" id="txt-futureInflation">Inflació Anual Esperada (%)</label>
+            <span class="form-label-hint">Banc Central ~2-2.5%</span>
+          </div>
+          <div class="input-with-adornment">
+            <input type="number" id="input-futureInflation" class="form-control has-right-adornment" value="2.5" step="0.1">
+            <span class="input-adornment-right">%</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label class="form-label" for="input-futureWageGrowth" id="txt-futureRealWageGrowth">Creixement Salarial Real (%)</label>
+            <span class="form-label-hint">Per sobre d'inflació</span>
+          </div>
+          <div class="input-with-adornment">
+            <input type="number" id="input-futureWageGrowth" class="form-control has-right-adornment" value="1.5" step="0.1">
+            <span class="input-adornment-right">%</span>
+          </div>
+        </div>
+
+        <div class="form-group" style="display: flex; justify-content: flex-end; align-items: flex-end;">
+          <button id="btn-recalculate-future" class="btn btn-primary" style="width: 100%; height: 46px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            <span id="txt-futureSimulateBtn">Recalcular 1.000 Simulacions</span>
+          </button>
         </div>
       </div>
-
-      <div class="control-section">
-        <label class="control-label" for="input-futureInflation">
-          <span id="txt-futureInflation">Inflació Anual Esperada (%)</span>
-        </label>
-        <input type="number" id="input-futureInflation" value="2.5" step="0.1">
-      </div>
-
-      <div class="control-section">
-        <label class="control-label" for="input-futureWageGrowth">
-          <span id="txt-futureRealWageGrowth">Creixement Salarial Real (%)</span>
-        </label>
-        <input type="number" id="input-futureWageGrowth" value="1.5" step="0.1">
-      </div>
-
-      <div class="control-section" style="display: flex; justify-content: flex-end; align-items: flex-end;">
-        <button id="btn-recalculate-future" class="btn-export" style="background: var(--color-cyan); color: #080C14; font-weight: 700; width: 100%; justify-content: center; padding: 12px;">
-          <span id="txt-futureSimulateBtn">Recalcular 1.000 Escenaris Monte Carlo</span>
-        </button>
-      </div>
-    </div>
+    </section>
 
     <!-- Hero KPI Grid -->
     <div class="kpi-grid">
       <!-- Final Wealth -->
-      <div class="kpi-card cyan">
+      <div class="kpi-card accent-blue">
         <div class="kpi-header">
           <span class="kpi-title" id="txt-kpiFinalWealth">Patrimoni Final (S&P 500)</span>
-          <div class="kpi-icon">
+          <div class="kpi-icon-container">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
           </div>
         </div>
@@ -214,10 +291,10 @@
       </div>
 
       <!-- Total Invested -->
-      <div class="kpi-card emerald">
+      <div class="kpi-card accent-emerald">
         <div class="kpi-header">
           <span class="kpi-title" id="txt-kpiTotalInvested">Capital Total Aportat</span>
-          <div class="kpi-icon">
+          <div class="kpi-icon-container">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M7 15h0M2 9.5h20"/></svg>
           </div>
         </div>
@@ -226,10 +303,10 @@
       </div>
 
       <!-- Real Purchasing Power Multiplier -->
-      <div class="kpi-card purple">
+      <div class="kpi-card accent-purple">
         <div class="kpi-header">
           <span class="kpi-title" id="txt-kpiRealMultiplier">Multiplicador de Poder de Compra</span>
-          <div class="kpi-icon">
+          <div class="kpi-icon-container">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
           </div>
         </div>
@@ -238,10 +315,10 @@
       </div>
 
       <!-- Cash Erosion by Inflation -->
-      <div class="kpi-card red">
+      <div class="kpi-card accent-red">
         <div class="kpi-header">
           <span class="kpi-title" id="txt-kpiCashErosion">Erosió per Inflació (Matalàs)</span>
-          <div class="kpi-icon">
+          <div class="kpi-icon-container">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>
           </div>
         </div>
@@ -251,11 +328,17 @@
     </div>
 
     <!-- Main Chart Card -->
-    <div class="chart-card">
-      <div class="chart-header">
-        <h2 class="chart-title" id="txt-chartTitle">Trajectòria del Patrimoni al Llarg del Temps</h2>
+    <div class="card chart-card">
+      <div class="card-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue-accent)" stroke-width="2">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+            <polyline points="17 6 23 6 23 12"></polyline>
+          </svg>
+          <h2 class="card-title" id="txt-chartTitle">Trajectòria del Patrimoni al Llarg del Temps</h2>
+        </div>
         <div class="chart-actions">
-          <span id="chart-mode-badge" class="kpi-badge positive">Poder de Compra Real (2026)</span>
+          <span id="chart-mode-badge" class="badge badge-success">Poder de Compra Real (2026)</span>
         </div>
       </div>
       <div class="chart-canvas-wrapper">
@@ -265,13 +348,16 @@
 
     <!-- Barcelona Real Estate Spotlight (Spain mode only) -->
     <div id="re-spotlight" class="re-insight-card">
-      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        <h3 style="font-family: var(--font-display); font-size: 1.15rem; color: #DDD6FE;" id="txt-reTitle">Cas Pràctic Immobiliari a Barcelona (Pis de 75m² + Hipoteca)</h3>
+      <div class="re-header">
+        <div class="re-icon-box">🏠</div>
+        <div>
+          <h3 class="re-title" id="txt-reTitle">Cas Pràctic Immobiliari a Barcelona (Pis de 75m² + Hipoteca)</h3>
+          <p class="re-explainer" id="txt-reExplainer">
+            Simula la compra d'un pis estàndard de 75 m² a Barcelona al preu de l'any d'inici, utilitzant el 10% del sou mensual per pagar la hipoteca al 80% (Euríbor/Míbor) sumat al lloguer net (~4,2%) enfront de la revalorització del metre quadrat.
+          </p>
+        </div>
       </div>
-      <p style="font-size: 0.85rem; color: #CBD5E1; line-height: 1.45;" id="txt-reExplainer">
-        Simula la compra d'un pis estàndard de 75 m² a Barcelona al preu de l'any d'inici, utilitzant el 10% del sou mensual per pagar la hipoteca al 80% (Euríbor/Míbor) sumat al lloguer net (~4,2%) enfront de la revalorització del metre quadrat.
-      </p>
+
       <div class="re-grid">
         <div class="re-stat-box">
           <div class="re-stat-label" id="txt-rePropertyVal">Valor de Mercat del Pis</div>
@@ -295,7 +381,7 @@
     <!-- Reality Check Banner -->
     <div class="reality-banner">
       <div class="reality-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
       </div>
       <div class="reality-content">
         <h4 id="txt-realityCheckTitle">La Crua Realitat de la Inflació: Borsa vs Diners Parats</h4>
@@ -311,17 +397,25 @@
     </div>
 
     <!-- Historical Deep-Dive Table -->
-    <div id="table-card-container" class="table-card">
-      <div class="table-header">
-        <h3 style="font-family: var(--font-display); font-size: 1.15rem;" id="txt-tableTitle">Desglossament Detallat Any per Any</h3>
-        <button id="btn-export-csv" class="btn-export">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span id="txt-exportCsv">Exportar Dades a CSV</span>
-        </button>
+    <div id="table-card-container" class="table-section">
+      <div class="table-toolbar">
+        <div class="table-toolbar-left">
+          <h3 class="table-toolbar-title" id="txt-tableTitle">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+            Desglossament Detallat Any per Any
+          </h3>
+          <p class="table-toolbar-desc">Evolució anual de salaris, aportacions, rendiments d'actius i inflació</p>
+        </div>
+        <div class="table-toolbar-actions">
+          <button id="btn-export-csv" class="btn btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span id="txt-exportCsv">Exportar Dades a CSV</span>
+          </button>
+        </div>
       </div>
 
-      <div class="table-responsive">
-        <table id="breakdown-table">
+      <div class="table-responsive-container">
+        <table id="breakdown-table" class="data-table">
           <thead id="table-head">
             <!-- Headers populated dynamically -->
           </thead>
@@ -332,9 +426,9 @@
       </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Footer Corporatiu -->
     <footer class="app-footer">
-      <p id="txt-footerCredits">Simulador de Rendiments Reals d'Inversió • Creat amb sèries històriques verificades (INE, BLS, SSA, Damodaran, BME, Idealista).</p>
+      <p id="txt-footerCredits">Simulador de Rendiments Reals d'Inversió • Desenvolupat amb sèries històriques verificades (INE, BLS, SSA, Damodaran, BME, Idealista).</p>
     </footer>
   </div>
 

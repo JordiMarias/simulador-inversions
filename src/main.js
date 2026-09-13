@@ -489,7 +489,7 @@ function renderMilestones(mc, sym) {
     card.innerHTML = `
       <div class="milestone-year">
         <span>${m.yearLabel}</span>
-        <span style="font-size: 0.9rem; color: #10B981;">+${m.p50Multiplier}x</span>
+        <span style="font-size: 0.9rem; color: var(--status-success);">+${m.p50Multiplier}x</span>
       </div>
       <div class="milestone-row">
         <span>${lang === 'ca' ? 'Capital Aportat (Real)' : 'Real Capital Contributed'}</span>
@@ -497,19 +497,19 @@ function renderMilestones(mc, sym) {
       </div>
       <div class="milestone-row">
         <span>${lang === 'ca' ? 'Pessimista (Percentil 10)' : 'Bear (10th Percentile)'}</span>
-        <span class="val" style="color: #F87171;">${formatCurrency(m.p10Real, sym)}</span>
+        <span class="val" style="color: var(--status-danger);">${formatCurrency(m.p10Real, sym)}</span>
       </div>
       <div class="milestone-row">
         <span>${lang === 'ca' ? 'Mediana (Percentil 50)' : 'Median (50th Percentile)'}</span>
-        <span class="val" style="color: #06B6D4; font-size: 1.05rem;">${formatCurrency(m.p50Real, sym)}</span>
+        <span class="val" style="color: var(--blue-accent); font-size: 1.05rem;">${formatCurrency(m.p50Real, sym)}</span>
       </div>
       <div class="milestone-row">
         <span>${lang === 'ca' ? 'Optimista (Percentil 90)' : 'Bull (90th Percentile)'}</span>
-        <span class="val" style="color: #34D399;">${formatCurrency(m.p90Real, sym)}</span>
+        <span class="val" style="color: var(--status-success);">${formatCurrency(m.p90Real, sym)}</span>
       </div>
       <div class="milestone-row">
         <span>${lang === 'ca' ? 'Efectiu al 0% (Real)' : 'Cash at 0% (Real)'}</span>
-        <span class="val" style="color: #94A3B8;">${formatCurrency(m.cashReal, sym)}</span>
+        <span class="val" style="color: var(--text-muted);">${formatCurrency(m.cashReal, sym)}</span>
       </div>
     `;
     elements.futureMilestones.appendChild(card);
@@ -559,12 +559,12 @@ function renderTable(res, isReal) {
 
     let rowHtml = `
       <tr>
-        <td style="font-weight: 700; color: #F8FAFC;">${row.year}</td>
+        <td style="font-weight: 700; color: var(--navy-primary);">${row.year}</td>
         <td>${formatCurrency(row.salary, sym)}</td>
         <td>${formatCurrency(row.monthlySalary * (state.savingsRate / 100), sym)}</td>
-        <td style="color: ${row.inflation > 4 ? '#F87171' : '#CBD5E1'};">${row.inflation}%</td>
+        <td style="color: ${row.inflation > 4 ? 'var(--status-danger)' : 'var(--text-secondary)'};">${row.inflation}%</td>
         <td class="${retClass}">${row.sp500Return > 0 ? '+' : ''}${row.sp500Return}%</td>
-        <td style="font-weight: 600; color: #06B6D4;">${formatCurrency(spBal, sym)}</td>
+        <td style="font-weight: 700; color: var(--blue-accent);">${formatCurrency(spBal, sym)}</td>
     `;
 
     if (isSpain) {
@@ -573,15 +573,15 @@ function renderTable(res, isReal) {
       const ibexBal = isReal ? row.ibexReal2026 : row.ibexNominal;
 
       rowHtml += `
-        <td style="color: #A78BFA;">${formatCurrency(reBal, sym)}</td>
-        <td style="color: #60A5FA;">${formatCurrency(euroBal, sym)}</td>
-        <td style="color: #F472B6;">${formatCurrency(ibexBal, sym)}</td>
+        <td style="color: var(--status-purple); font-weight: 600;">${formatCurrency(reBal, sym)}</td>
+        <td style="color: #2563eb; font-weight: 600;">${formatCurrency(euroBal, sym)}</td>
+        <td style="color: #db2777; font-weight: 600;">${formatCurrency(ibexBal, sym)}</td>
       `;
     }
 
     rowHtml += `
-        <td style="color: #FBBF24;">${formatCurrency(bankBal, sym)}</td>
-        <td style="color: #94A3B8;">${formatCurrency(cashBal, sym)}</td>
+        <td style="color: var(--status-warning); font-weight: 600;">${formatCurrency(bankBal, sym)}</td>
+        <td style="color: var(--text-muted); font-weight: 600;">${formatCurrency(cashBal, sym)}</td>
       </tr>
     `;
 
